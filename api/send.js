@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Only POST allowed" });
 
   try {
-    const { content, username } = req.body || {};
+    const { content, username, embeds } = req.body || {};
     const webhookUrl = process.env.WEBHOOK_URL;
 
     if (!webhookUrl) {
@@ -20,8 +20,9 @@ export default async function handler(req, res) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        content: content || "빈 메시지",
-        username: username || "Roblox Bot",
+        content: content || undefined, // content 비워도됨
+        username: username || "FLOWER SS",
+        embeds: embeds || [], // ← 임베드 전달 추가
       }),
     });
 
